@@ -1,0 +1,22 @@
+{
+    "name": "monokakure/laravel-csv",
+    "description": "Simple query builder",
+    "keywords": ["laravel", "csv"],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/satkaku/laravel-csv",
+    "authors": [
+        {
+            "name": "satkaku"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "way/phpunit-wrappers": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Monokakure\\CSV": "src/"
+        }
+    }
+}
