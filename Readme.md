@@ -24,21 +24,25 @@ If you want, add Alias
 ## Usage
 + from array
 ```php
-CSV::make($arr, $header);
+CSV::create($arr, $header);
 ```
 + get CSV
 ```php
-CSV::make($arr, $header)->build();
+CSV::create($arr, $header)->build();
 ```
 + You can select Encode
 ```php
-CSV::setEncode('SJIS-win', 'UTF-8')->make($arr, $header)->build();
+CSV::setEncode('SJIS-win', 'UTF-8')->create($arr, $header)->build();
 ```
 + get Response
 ```php
-CSV::make($arr, $header)->render();
+CSV::create($arr, $header)->render();
 ```
 + parse CSV
 ```php
 CSV::parse('sample.csv');
 ```
+
+## Extend
+If you want, you can use extended Monokakure\CSV\CSV class.
+Override Monokakure\CSV\Factory#getCSV method.

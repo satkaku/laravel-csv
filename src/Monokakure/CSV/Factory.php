@@ -2,12 +2,10 @@
 
 use SplFileObject;
 
-class CSVManipulator {
+class Factory {
 
 	private $encodeFrom;
 	private $encodeTo;
-
-	private $csv;
 
 	public function setEncode($to, $from)
 	{
@@ -17,9 +15,9 @@ class CSVManipulator {
 		return $this;
 	}
 
-	public function make($arr, $header=null)
+	public function create($arr, $header=null)
 	{
-		return new CSV(array(
+		return $this->getCSV(array(
 			'lines'  => $arr,
 			'header' => $header,
 			'encodeTo' => $this->encodeTo,
@@ -46,12 +44,17 @@ class CSVManipulator {
 				$recodes[] = $line;	
 			}
 		}
-		return new CSV(array(
+		return $this->getCSV(array(
 			'lines' => $recodes,
 			'header'=> $header,
 			'encodeTo' => $this->encodeTo,
 			'encodeFrom' => $this->encodeFrom,
 		));
+	}
+
+	protected function getCSV($opts)
+	{
+		return new CSV($opts);
 	}
 
 }

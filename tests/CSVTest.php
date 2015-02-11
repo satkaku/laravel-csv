@@ -7,7 +7,7 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 {
 	public function testParse()
 	{
-		$csv = new CSVManipulator();
+		$csv = new Factory();
 		$result = $csv->parse('./tests/read.csv');
 
 		Should::equal($result->lines()[0][0], 'samplename1');
@@ -18,7 +18,7 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 
 	public function testParseWithHeder()
 	{
-		$csv = new CSVManipulator();
+		$csv = new Factory();
 		$result = $csv->parse('./tests/header.csv', true);
 
 		Should::equal($result->hasHeader(), true);
@@ -33,18 +33,18 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 
 	public function testFromArray()
 	{
-		$csv = new CSVManipulator();
+		$csv = new Factory();
 		$arr = array(
 			'name' => 'samplename1',
 			'number' => 1
 		);
-		$result = $csv->make($arr)->build();
+		$result = $csv->create($arr)->build();
 		Should::equal($result, 'samplename1,1'."\n");
 	}
 
 	public function testFromArrayWithHeader()
 	{
-		$csv = new CSVManipulator();
+		$csv = new Factory();
 		$arr = array(
 			'name' => 'samplename1',
 			'number' => 1
@@ -52,19 +52,19 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 		$header = array(
 			'name', 'number'
 		);
-		$result = $csv->make($arr, $header)->build();
+		$result = $csv->create($arr, $header)->build();
 		Should::equal($result, 'name,number'."\n".'samplename1,1'."\n");
 	}
 
 	public function testFromArrayWithEncode()
 	{
-		$csv = new CSVManipulator();
+		$csv = new Factory();
 		$arr = array(
 			'name' => 'テスト',
 			'number' => 1
 		);
 		$result = $csv->setEncode('SJIS-win', 'UTF-8')
-					  ->make($arr)->build();
+					  ->create($arr)->build();
 
 		Should::equal(mb_detect_encoding($result, 'SJIS-win'), 'SJIS-win');
 	}

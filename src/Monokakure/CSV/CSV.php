@@ -69,15 +69,15 @@ class CSV {
 
 	public function render($filename='download.csv')
 	{
-		$headers = array(
-			'Content-Type' 		  => 'text/csv',
-			'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-			'Cache-Control' 	  => 'private',
-			'pragma' 			  => 'cache'
-		);
-		$result = $this->build();
+		return \Response::make($this->build(), 200, $this->getResponseHeader($filename));
+	}
 
-		return \Response::make($result, 200, $headers);
+	protected function getResponseHeader($filenae='download.csv')
+	{
+		return array(
+			'Content-Type' 		  => 'text/csv',
+			'Content-Disposition' => 'attachment; filename="'.$filename.'"'
+		);
 	}
 
 }
