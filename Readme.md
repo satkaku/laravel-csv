@@ -1,5 +1,5 @@
 # laravel-csv
-simple CSV manipulation for Laravel.
+Simple CSV manipulation for Laravel.
 Also you can select encoding.
 
 ## Getting started
