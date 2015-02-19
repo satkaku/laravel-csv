@@ -8,7 +8,7 @@ class CSVServiceProvider extends ServiceProvider
 	{
 		$this->app['csvfacade'] = $this->app->share(function ($app)
 		{
-			return new \Monokakure\CSV\CSVManipulator;
+			return new \Monokakure\CSV\Factory;
 		});
 	}
 }
