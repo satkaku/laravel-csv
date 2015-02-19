@@ -55,7 +55,12 @@ class CSV {
 		{
 			$sfo->fputcsv( $this->header, $this->delimiter );	
 		}
-		$sfo->fputcsv( $this->lines, $this->delimiter );
+		
+		foreach( $this->lines as $l )
+		{
+			$sfo->fputcsv( $l, $this->delimiter );	
+		}
+		
 		$this->_csv = ob_get_clean();
 	}
 
@@ -72,7 +77,7 @@ class CSV {
 		return \Response::make($this->build(), 200, $this->getResponseHeader($filename));
 	}
 
-	protected function getResponseHeader($filenae='download.csv')
+	protected function getResponseHeader($filename='download.csv')
 	{
 		return array(
 			'Content-Type' 		  => 'text/csv',
