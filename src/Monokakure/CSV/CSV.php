@@ -4,6 +4,8 @@ use SplFileObject;
 
 class CSV {
 
+	const BOM_UTF8 = "\xEF\xBB\xBF";
+
 	protected $header;
 	protected $lines;
 	protected $_csv = '';
@@ -11,6 +13,7 @@ class CSV {
 	protected $delimiter = ',';
 	protected $encodeFrom;
 	protected $encodeTo;
+	protected $bom = '';
 	
 
 	public function __construct($opts)
@@ -36,6 +39,11 @@ class CSV {
 		return $this->lines;
 	}
 
+	public function setBOM_UTF8()
+	{
+		$this->bom = self::BOM_UTF8;
+		return $this;
+	}
 
 	public function build()
 	{
@@ -61,7 +69,7 @@ class CSV {
 			$sfo->fputcsv( $l, $this->delimiter );	
 		}
 		
-		$this->_csv = ob_get_clean();
+		$this->_csv = $this->bom.ob_get_clean();
 	}
 
 	protected function encode()

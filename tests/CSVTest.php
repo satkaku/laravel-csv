@@ -35,8 +35,10 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 	{
 		$csv = new Factory();
 		$arr = array(
-			'name' => 'samplename1',
-			'number' => 1
+			array(
+				'name' => 'samplename1',
+				'number' => 1
+			)
 		);
 		$result = $csv->create($arr)->build();
 		Should::equal($result, 'samplename1,1'."\n");
@@ -46,8 +48,10 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 	{
 		$csv = new Factory();
 		$arr = array(
-			'name' => 'samplename1',
-			'number' => 1
+			array(
+				'name' => 'samplename1',
+				'number' => 1
+			)
 		);
 		$header = array(
 			'name', 'number'
@@ -60,13 +64,31 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 	{
 		$csv = new Factory();
 		$arr = array(
-			'name' => 'テスト',
-			'number' => 1
+			array(
+				'name' => 'テスト',
+				'number' => 1
+			)
 		);
 		$result = $csv->setEncode('SJIS-win', 'UTF-8')
 					  ->create($arr)->build();
 
 		Should::equal(mb_detect_encoding($result, 'SJIS-win'), 'SJIS-win');
+	}
+
+	public function testFromArrayWithBOM_UTF8()
+	{
+		$csv = new Factory();
+		$arr = array(
+			array(
+				'name' => 'テスト',
+				'number' => 1
+			)
+		);
+		$result = $csv->create($arr)
+						->setBOM_UTF8()
+						->build();
+		Should::equal(true, preg_match('/^\xef\xbb\xbf/', $result) );
+
 	}
 
 }
