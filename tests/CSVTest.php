@@ -44,6 +44,21 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 		Should::equal($result, 'samplename1,1'."\n");
 	}
 
+	public function testFromArrayWithTabDelimiter()
+	{
+		$csv = new Factory();
+		$arr = array(
+			array(
+				'name' => 'samplename1',
+				'number' => 1
+			)
+		);
+		$result = $csv->create($arr)
+						->setDelimiter("\t")
+						->build();
+		Should::equal($result, "samplename1\t1"."\n");
+	}
+
 	public function testFromArrayWithHeader()
 	{
 		$csv = new Factory();
@@ -88,6 +103,23 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 						->setBOM_UTF8()
 						->build();
 		Should::equal(true, preg_match('/^\xef\xbb\xbf/', $result) );
+
+	}
+
+	public function testFromArrayWithBOM_UTF16LE()
+	{
+		$csv = new Factory();
+		$arr = array(
+			array(
+				'name' => 'テスト',
+				'number' => 1
+			)
+		);
+		$result = $csv->setEncode('UTF-16LE', 'UTF-8')
+						->create($arr)
+						->setBOM_UTF16LE()
+						->build();
+		Should::equal(true, preg_match('/^\xff\xfe/', $result) );
 
 	}
 

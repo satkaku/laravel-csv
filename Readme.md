@@ -34,6 +34,15 @@ CSV::create($arr, $header)->build();
 ```php
 CSV::setEncode('SJIS-win', 'UTF-8')->create($arr, $header)->build();
 ```
++ You can put BOM
+```php
+CSV::create($arr, $header)->setBOM_UTF8()->build();
+CSV::create($arr, $header)->setBOM_UTF16LE()->build();
+```
++ You can change delimiter
+```php
+CSV::create($arr, $header)->setDelimiter("\t")->build();
+```
 + get Response
 ```php
 CSV::create($arr, $header)->render();
